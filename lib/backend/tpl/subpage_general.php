@@ -3,9 +3,10 @@
 		<h2><?php _e('General', 'sv100'); ?></h2>
 		<div class="sv_setting_flex">
 			<?php
-				echo $module->get_setting( 'content_header_wrapper_max_width' )->form();
-				echo $module->get_setting( 'content_header_max_width' )->form();
-				echo $module->get_setting( 'content_header_align' )->form();
+				echo $module->get_setting( 'wrapper_max_width' )->form();
+				echo $module->get_setting( 'max_width' )->form();
+				echo $module->get_setting( 'align' )->form();
+				echo $module->get_setting( 'min_height' )->form();
 			?>
 		</div>
 		<h3 class="divider"><?php _e( 'Colors', 'sv100' ); ?></h3>

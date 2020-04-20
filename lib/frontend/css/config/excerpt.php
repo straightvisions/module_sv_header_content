@@ -22,8 +22,18 @@
 	}
 
 	if($block_align_excerpt){
-		$properties['margin-left']		= $setting->prepare_css_property((($block_align_excerpt == 'left') ? '0' : ''),'','');
-		$properties['margin-right']		= $setting->prepare_css_property((($block_align_excerpt == 'right') ? '0' : ''),'','');
+		switch ( $block_align_excerpt ) {
+			case 'left':
+				$align					= 'flex-start';
+				break;
+			case 'center':
+				$align					= 'center';
+				break;
+			case 'right':
+				$align					= 'flex-end';
+		};
+
+		$properties['align-items']		= $setting->prepare_css_property($align,'','');
 	}
 
 	echo $setting->build_css(

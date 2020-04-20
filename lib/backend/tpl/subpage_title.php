@@ -12,7 +12,7 @@
 		<div class="sv_setting_flex">
 			<?php
 				echo $module->get_setting( 'text_align_title' )->form();
-				echo $module->get_setting( 'block_align_title' )->form();
+				//echo $module->get_setting( 'block_align_title' )->form();
 			?>
 		</div>
 	</div>

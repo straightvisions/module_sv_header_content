@@ -47,7 +47,7 @@
 		protected function load_settings(): sv_header_content {
 			// ### Content Header Settings ###
 			// Max Width
-			$this->get_setting( 'content_header_wrapper_max_width' )
+			$this->get_setting( 'wrapper_max_width' )
 				->set_title( __( 'Wrapper Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the wrapper for the content within the Content-Header', 'sv100' ) )
 				->set_options( array(
@@ -58,7 +58,7 @@
 				->set_default_value( '100%' )
 				->load_type( 'select' );
 
-			$this->get_setting( 'content_header_max_width' )
+			$this->get_setting( 'max_width' )
 				->set_title( __( 'Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the content within the Content-Header', 'sv100' ) )
 				->set_options( array(
@@ -69,7 +69,7 @@
 				->set_default_value( '100%' )
 				->load_type( 'select' );
 
-			$this->get_setting( 'content_header_align' )
+			$this->get_setting( 'align' )
 				->set_title( __( 'Alignment', 'sv100' ) )
 				->set_description( __( 'Set the alignment of the Content-Header', 'sv100' ) )
 				->set_options( array(
@@ -79,6 +79,12 @@
 				) )
 				->set_default_value( '10px auto' )
 				->load_type( 'select' );
+
+			$this->get_setting( 'min_height' )
+				->set_title( __( 'Minimum Height', 'sv100' ) )
+				->set_description( __( 'Set minimum height for Content-Header', 'sv100' ) )
+				->set_default_value( '60vh' )
+				->load_type( 'text' );
 
 			// Alignment
 			$this->get_setting( 'text_align_title' )
@@ -92,6 +98,8 @@
 				->set_default_value( 'center' )
 				->load_type( 'select' );
 
+			/*
+			 * @todo: reimplment when title has a max width setting
 			$this->get_setting( 'block_align_title' )
 				->set_title( __( 'Block Alignment', 'sv100' ) )
 				->set_description( __( 'Defines the alignment of the title block inside the content header.', 'sv100' ) )
@@ -102,6 +110,7 @@
 				) )
 				->set_default_value( 'center' )
 				->load_type( 'select' );
+			*/
 
 			$this->get_setting( 'text_align_excerpt' )
 				->set_title( __( 'Text Alignment', 'sv100' ) )

@@ -6,11 +6,6 @@
 	foreach ( $script->get_parent()->get_settings() as $setting ) {
 		if ( $setting->get_type() !== false ) {
 			${ $setting->get_ID() } = $setting->get_data();
-
-			// If setting is color, it gets the value in the RGB-Format
-			if ( $setting->get_type() === 'setting_color' ) {
-				${ $setting->get_ID() } = $setting->get_rgb( ${ $setting->get_ID() } );
-			}
 		}
 	}
 
@@ -33,26 +28,12 @@
 .sv100_sv_header_content {
     background-color: rgba(<?php echo $bg_color; ?>);
 }
-
+.sv100_sv_header_content_wrapper {
+max-width: <?php echo $wrapper_max_width; ?>;
+}
 .sv100_sv_header_content_content {
     background-color: rgba(<?php echo $header_content_overlay_color; ?>);
-	align-items:
-	<?php
-		switch ( $block_align_title ) {
-			case 'left':
-				echo 'flex-start';
-				break;
-			case 'center':
-				echo 'center';
-				break;
-			case 'right':
-				echo 'flex-end';
-		};
-	?>;
-	margin: <?php echo $content_header_align; ?>;
-	max-width: <?php echo $content_header_max_width; ?>;
-}
-
-.sv100_sv_content_header .sv100_sv_content_header_content_wrapper {
-	max-width: <?php echo $content_header_wrapper_max_width; ?>;
+	margin: <?php echo $script->get_parent()->get_setting('align')->get_data(); ?>;
+	max-width: <?php echo $max_width; ?>;
+	min-height: <?php echo $min_height; ?>;
 }
