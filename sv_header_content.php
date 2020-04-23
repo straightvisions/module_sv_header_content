@@ -134,6 +134,22 @@
 				->set_default_value( 'center' )
 				->load_type( 'select' );
 
+			$this->get_setting( 'margin_excerpt' )
+				->set_title( __( 'Margin', 'sv100' ) )
+				->set_is_responsive(true)
+				->load_type( 'margin' );
+
+			$this->get_setting( 'padding_excerpt' )
+				->set_title( __( 'Padding', 'sv100' ) )
+				->set_is_responsive(true)
+				->load_type( 'margin' );
+
+			$this->get_setting( 'border_excerpt' )
+				->set_title( __( 'Border', 'sv100' ) )
+				->set_is_responsive(true)
+				->load_type( 'border' );
+
+
 			// Title
 			$this->get_setting( 'font_family_title' )
 				->set_title( __( 'Font Family', 'sv100' ) )
