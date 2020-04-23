@@ -369,40 +369,9 @@
 				}
 			}
 
-			$color = $setting->get_rgb( $data, $this->get_header_content_overlay_opacity() );
+			$color = $setting->get_rgb( $data );
 
 			return $color;
-		}
-
-		public function get_header_content_overlay_opacity(): string{
-			global $post;
-
-			$data = $this->get_setting( 'header_content_overlay_opacity' )->get_data();
-			if ( is_single() || is_page() || is_front_page() ) {
-				if ( get_post_meta(
-						$post->ID,
-						$this->get_child_module('metabox')
-							->get_setting( 'header_content_override' )
-							->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
-						true
-					) == 1 ) {
-					if ( $post ) {
-						$metabox_data = get_post_meta(
-							$post->ID,
-							$this->get_child_module('metabox')
-								->get_setting( 'header_content_overlay_opacity' )
-								->get_prefix( $this->get_setting( 'header_content_overlay_opacity' )->get_ID() ),
-							true
-						);
-
-						if ( $metabox_data !== false && $metabox_data !== '') {
-							$data = $metabox_data;
-						}
-					}
-				}
-			}
-
-			return $data;
 		}
 
 		public function get_header_content_title_color(): string{

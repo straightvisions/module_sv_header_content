@@ -83,14 +83,6 @@
 				->set_default_value($this->get_parent()->get_setting('header_content_overlay_color')->get_data())
 				->load_type( 'color' );
 
-			$this->get_setting('header_content_overlay_opacity')
-				->set_title( $this->get_parent()->get_setting('header_content_overlay_opacity')->get_title() )
-				->set_description( $this->get_parent()->get_setting('header_content_overlay_opacity')->get_description() )
-				->set_default_value( $this->get_parent()->get_setting('header_content_overlay_opacity')->get_data() )
-				->set_min( 0 )
-				->set_max( 100 )
-				->load_type( 'number' );
-
 			$this->get_setting( 'text_color_title' )
 				->set_title( __('Header Title: ','sv100').$this->get_parent()->get_setting('text_color_title')->get_title() )
 				->set_description( $this->get_parent()->get_setting('text_color_title')->get_description() )
