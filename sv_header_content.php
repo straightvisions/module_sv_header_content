@@ -312,6 +312,10 @@
 		}
 
 		public function load( $settings = array() ): string {
+			if($this->hide_header()){
+				return '';
+			}
+
 			$settings								= shortcode_atts(
 				array(
 					'inline'						=> true,
