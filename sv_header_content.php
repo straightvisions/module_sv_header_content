@@ -50,33 +50,21 @@
 			$this->get_setting( 'outer_wrapper_max_width' )
 				->set_title( __( 'Outer Wrapper Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the wrapper for the content within the Content-Header', 'sv100' ) )
-				->set_options( array(
-					'var( --sv100_sv_common-max-width-alignfull )'		=> __( 'Full', 'sv100' ),
-					'var( --sv100_sv_common-max-width-alignwide )'		=> __( 'Wide', 'sv100' ),
-					'var( --sv100_sv_common-max-width-text )'			=> __( 'Normal', 'sv100' )
-				) )
+				->set_options( $this->get_module('sv_common')->get_max_width_options() )
 				->set_default_value( '100%' )
 				->load_type( 'select' );
 
 			$this->get_setting( 'inner_wrapper_max_width' )
 				->set_title( __( 'Inner Wrapper Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the wrapper for the content within the Content-Header', 'sv100' ) )
-				->set_options( array(
-					'var( --sv100_sv_common-max-width-alignfull )'		=> __( 'Full', 'sv100' ),
-					'var( --sv100_sv_common-max-width-alignwide )'		=> __( 'Wide', 'sv100' ),
-					'var( --sv100_sv_common-max-width-text )'			=> __( 'Normal', 'sv100' )
-				) )
+				->set_options( $this->get_module('sv_common')->get_max_width_options() )
 				->set_default_value( '100%' )
 				->load_type( 'select' );
 
 			$this->get_setting( 'content_max_width' )
 				->set_title( __( 'Content Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the content within the Content-Header', 'sv100' ) )
-				->set_options( array(
-					'var( --sv100_sv_common-max-width-alignfull )'		=> __( 'Full', 'sv100' ),
-					'var( --sv100_sv_common-max-width-alignwide )'		=> __( 'Wide', 'sv100' ),
-					'var( --sv100_sv_common-max-width-text )'			=> __( 'Normal', 'sv100' )
-				) )
+				->set_options( $this->get_module('sv_common')->get_max_width_options() )
 				->set_default_value( '100%' )
 				->load_type( 'select' );
 
