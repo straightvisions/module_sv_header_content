@@ -47,24 +47,35 @@
 		protected function load_settings(): sv_header_content {
 			// ### Content Header Settings ###
 			// Max Width
-			$this->get_setting( 'wrapper_max_width' )
-				->set_title( __( 'Wrapper Max Width', 'sv100' ) )
+			$this->get_setting( 'outer_wrapper_max_width' )
+				->set_title( __( 'Outer Wrapper Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the wrapper for the content within the Content-Header', 'sv100' ) )
 				->set_options( array(
-					'100%'										=> __( 'Full', 'sv100' ),
-					'var( --sv100_sv_common-max-width-lg )'	=> __( 'Wide', 'sv100' ),
-					'var( --sv100_sv_common-max-width-txt )'	=> __( 'Normal', 'sv100' )
+					'var( --sv100_sv_common-max-width-alignfull )'		=> __( 'Full', 'sv100' ),
+					'var( --sv100_sv_common-max-width-alignwide )'		=> __( 'Wide', 'sv100' ),
+					'var( --sv100_sv_common-max-width-text )'			=> __( 'Normal', 'sv100' )
 				) )
 				->set_default_value( '100%' )
 				->load_type( 'select' );
 
-			$this->get_setting( 'max_width' )
-				->set_title( __( 'Max Width', 'sv100' ) )
+			$this->get_setting( 'inner_wrapper_max_width' )
+				->set_title( __( 'Inner Wrapper Max Width', 'sv100' ) )
+				->set_description( __( 'Set the max width of the wrapper for the content within the Content-Header', 'sv100' ) )
+				->set_options( array(
+					'var( --sv100_sv_common-max-width-alignfull )'		=> __( 'Full', 'sv100' ),
+					'var( --sv100_sv_common-max-width-alignwide )'		=> __( 'Wide', 'sv100' ),
+					'var( --sv100_sv_common-max-width-text )'			=> __( 'Normal', 'sv100' )
+				) )
+				->set_default_value( '100%' )
+				->load_type( 'select' );
+
+			$this->get_setting( 'content_max_width' )
+				->set_title( __( 'Content Max Width', 'sv100' ) )
 				->set_description( __( 'Set the max width of the content within the Content-Header', 'sv100' ) )
 				->set_options( array(
-					'100%'										=> __( 'Full', 'sv100' ),
-					'var( --sv100_sv_common-max-width-lg )'	=> __( 'Wide', 'sv100' ),
-					'var( --sv100_sv_common-max-width-txt )'	=> __( 'Normal', 'sv100' )
+					'var( --sv100_sv_common-max-width-alignfull )'		=> __( 'Full', 'sv100' ),
+					'var( --sv100_sv_common-max-width-alignwide )'		=> __( 'Wide', 'sv100' ),
+					'var( --sv100_sv_common-max-width-text )'			=> __( 'Normal', 'sv100' )
 				) )
 				->set_default_value( '100%' )
 				->load_type( 'select' );
@@ -90,6 +101,14 @@
 			$this->get_setting( 'margin' )
 				->set_title( __( 'Margin', 'sv100' ) )
 				->set_is_responsive(true)
+				->set_default_value(
+					array(
+						'top'		=> '0px',
+						'right'		=> 'auto',
+						'bottom'	=> '0px',
+						'left'		=> 'auto'
+					)
+				)
 				->load_type( 'margin' );
 
 			$this->get_setting( 'padding' )

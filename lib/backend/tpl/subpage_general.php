@@ -3,8 +3,13 @@
 		<h2><?php _e('General', 'sv100'); ?></h2>
 		<div class="sv_setting_flex">
 			<?php
-				echo $module->get_setting( 'wrapper_max_width' )->form();
-				echo $module->get_setting( 'max_width' )->form();
+				echo $module->get_setting( 'outer_wrapper_max_width' )->form();
+				echo $module->get_setting( 'inner_wrapper_max_width' )->form();
+				echo $module->get_setting( 'content_max_width' )->form();
+			?>
+		</div>
+		<div class="sv_setting_flex">
+			<?php
 				echo $module->get_setting( 'align' )->form();
 				echo $module->get_setting( 'min_height' )->form();
 			?>

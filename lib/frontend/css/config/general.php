@@ -75,14 +75,15 @@
 	?>
 
 .sv100_sv_header_content {
-background-color: rgba(<?php echo $bg_color; ?>);
+	background-color: rgba(<?php echo $bg_color; ?>);
+	max-width: <?php echo $outer_wrapper_max_width; ?>;
 }
 .sv100_sv_header_content_wrapper {
-max-width: <?php echo $wrapper_max_width; ?>;
+	max-width: <?php echo $inner_wrapper_max_width; ?>;
 }
 .sv100_sv_header_content_content {
-background-color: rgba(<?php echo $header_content_overlay_color; ?>);
-margin: <?php echo $script->get_parent()->get_setting('align')->get_data(); ?>;
-max-width: <?php echo $max_width; ?>;
-min-height: <?php echo $min_height; ?>;
+	background-color: rgba(<?php echo $header_content_overlay_color; ?>);
+	margin: <?php echo $script->get_parent()->get_setting('align')->get_data(); ?>;
+	max-width: <?php echo $content_max_width; ?>;
+	min-height: <?php echo $min_height; ?>;
 }
