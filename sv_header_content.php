@@ -52,6 +52,7 @@
 				->set_description( __( 'Set the max width of the wrapper for the content within the Content-Header', 'sv100' ) )
 				->set_options( $this->get_module('sv_common')->get_max_width_options() )
 				->set_default_value( '100%' )
+				->set_is_responsive(true)
 				->load_type( 'select' );
 
 			$this->get_setting( 'inner_wrapper_max_width' )
@@ -59,6 +60,7 @@
 				->set_description( __( 'Set the max width of the wrapper for the content within the Content-Header', 'sv100' ) )
 				->set_options( $this->get_module('sv_common')->get_max_width_options() )
 				->set_default_value( '100%' )
+				->set_is_responsive(true)
 				->load_type( 'select' );
 
 			$this->get_setting( 'content_max_width' )
@@ -66,6 +68,7 @@
 				->set_description( __( 'Set the max width of the content within the Content-Header', 'sv100' ) )
 				->set_options( $this->get_module('sv_common')->get_max_width_options() )
 				->set_default_value( '100%' )
+				->set_is_responsive(true)
 				->load_type( 'select' );
 
 			$this->get_setting( 'align' )
@@ -77,12 +80,14 @@
 					'10px 0 10px auto'								=> __( 'right', 'sv100' )
 				) )
 				->set_default_value( '10px auto' )
+				->set_is_responsive(true)
 				->load_type( 'select' );
 
 			$this->get_setting( 'min_height' )
 				->set_title( __( 'Minimum Height', 'sv100' ) )
 				->set_description( __( 'Set minimum height for Content-Header', 'sv100' ) )
 				->set_default_value( '60vh' )
+				->set_is_responsive(true)
 				->load_type( 'text' );
 
 			// Spacing
@@ -257,6 +262,7 @@
 			$this->get_setting( 'bg_color' )
 				->set_title( __( 'Background Color', 'sv100' ) )
 				->set_default_value( '#f5f5f5' )
+				->set_is_responsive(true)
 				->load_type( 'color' );
 
 			// Overlay Settings
