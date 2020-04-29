@@ -32,3 +32,6 @@
 .sv100_sv_header_content_excerpt p {
 	max-width: 100%;
 }
+.sv100_sv_header_content_background {
+	user-select: none;
+}
