@@ -75,9 +75,9 @@
 				->set_title( __( 'Alignment', 'sv100' ) )
 				->set_description( __( 'Set the alignment of the Content-Header', 'sv100' ) )
 				->set_options( array(
-					'10px auto'									=> __( 'center', 'sv100' ),
-					'10px auto 10px 0'								=> __( 'left', 'sv100' ),
-					'10px 0 10px auto'								=> __( 'right', 'sv100' )
+					'0 auto'									=> __( 'center', 'sv100' ),
+					'0 auto 0 0'								=> __( 'left', 'sv100' ),
+					'0 0 0 auto'								=> __( 'right', 'sv100' )
 				) )
 				->set_default_value( '10px auto' )
 				->set_is_responsive(true)
