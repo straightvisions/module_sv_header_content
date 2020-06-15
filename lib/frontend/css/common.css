@@ -35,3 +35,8 @@
 .sv100_sv_header_content_background {
 	user-select: none;
 }
+
+.sv100_sv_header_content_content .post-categories{
+	list-style-type:none;
+	padding:0;
+}
