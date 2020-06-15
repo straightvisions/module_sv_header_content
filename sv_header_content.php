@@ -140,6 +140,11 @@
 				->load_type( 'select' );
 			*/
 
+			$this->get_setting( 'excerpt_show_single' )
+				->set_title( __( 'Show Excerpt on single post', 'sv100' ) )
+				->set_default_value( '1' )
+				->load_type( 'checkbox' );
+
 			$this->get_setting( 'text_align_excerpt' )
 				->set_title( __( 'Text Alignment', 'sv100' ) )
 				->set_description( __( 'Defines the alignment of the excerpt inside the content header.', 'sv100' ) )
@@ -545,6 +550,9 @@
 
 		public function show_author(): bool{
 			return $this->get_visibility('author');
+		}
+		public function show_excerpt_single_post(): bool{
+			return boolval($this->get_setting( 'excerpt_show_single' )->get_data());
 		}
 
 		public function show_meta(): bool{
