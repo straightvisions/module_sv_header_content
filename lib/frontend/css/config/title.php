@@ -17,7 +17,7 @@
 	}
 
 	if(isset($font_title['family'])){
-		$properties['font-family']	= $setting->prepare_css_property($font_title['family'],'',', sans-serif;');
+		$properties['font-family']	= $setting->prepare_css_property($font_title['family'],'',', sans-serif');
 		$properties['font-weight']	= $setting->prepare_css_property($font_title['weight'],'','');
 	}
 
