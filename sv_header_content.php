@@ -154,6 +154,7 @@
 					'right'     => __( 'Right', 'sv100' )
 				) )
 				->set_default_value( 'left' )
+				->set_is_responsive(true)
 				->load_type( 'select' );
 
 			$this->get_setting( 'block_align_excerpt' )

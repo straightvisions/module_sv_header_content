@@ -5,6 +5,7 @@
 			$script->get_parent()->get_setting('font_family_excerpt')->get_css_data('font-family'),
 			$script->get_parent()->get_setting('font_size_excerpt')->get_css_data('font-size','','px'),
 			$script->get_parent()->get_setting('line_height_excerpt')->get_css_data('line-height'),
+			$script->get_parent()->get_setting('text_align_excerpt')->get_css_data('text-align'),
 			$script->get_parent()->get_setting('padding_excerpt')->get_css_data('padding'),
 			$script->get_parent()->get_setting('margin_excerpt')->get_css_data('margin'),
 			$script->get_parent()->get_setting('border_excerpt')->get_css_data()
