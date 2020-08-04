@@ -23,6 +23,6 @@
 	}
 
 	echo $setting->build_css(
-		'.sv100_sv_header_content_meta *',
+		'.sv100_sv_header_content_meta',
 		$properties
 	);
