@@ -105,6 +105,11 @@
 				 ->set_title( __('Hide Header', 'sv100') )
 				 ->set_description( __('No Content Header will be shown on this post.', 'sv100') )
 				 ->load_type( 'checkbox' );
+
+			$this->get_setting( 'hide_featured_image' )
+				->set_title( __('Hide Featured Image', 'sv100') )
+				->set_description( __('No Featured Image will be shown on this post.', 'sv100') )
+				->load_type( 'checkbox' );
 			
 			return $this;
 		}

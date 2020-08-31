@@ -541,6 +541,22 @@
 			}
 		}
 
+		public function hide_featured_image(): bool {
+			global $post;
+
+			if ( get_post_meta(
+					$post->ID,
+					$this->get_child_module( 'metabox' )
+						->get_setting( 'hide_featured_image' )
+						->get_prefix( $this->get_setting( 'hide_featured_image' )->get_ID() ),
+					true
+				) == 1 ) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+
 		public function show_date(): bool{
 			return $this->get_visibility('date');
 		}
