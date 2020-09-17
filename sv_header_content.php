@@ -16,8 +16,6 @@
 			$this->set_module_title( __( 'SV Header Content', 'sv100' ) )
 				->set_module_desc( __( 'Content Header Settings', 'sv100' ) )
 				->load_child_modules()
-				->load_settings()
-				->register_scripts()
 				->set_section_title( __( 'Header Content', 'sv100' ) )
 				->set_section_desc( $this->get_module_desc() )
 				->set_section_type( 'settings' )
@@ -355,6 +353,10 @@
 		public function load( $settings = array() ): string {
 			if($this->hide_header()){
 				return '';
+			}
+
+			if(!is_admin()){
+				$this->load_settings()->register_scripts();
 			}
 
 			$settings								= shortcode_atts(
