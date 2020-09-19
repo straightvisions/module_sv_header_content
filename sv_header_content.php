@@ -1,26 +1,17 @@
 <?php
 	namespace sv100;
 
-	/**
-	 * @version         4.150
-	 * @author			straightvisions GmbH
-	 * @package			sv100
-	 * @copyright		2019 straightvisions GmbH
-	 * @link			https://straightvisions.com
-	 * @since			1.000
-	 * @license			See license.txt or https://straightvisions.com
-	 */
-
 	class sv_header_content extends init {
 		public function init() {
 			$this->set_module_title( __( 'SV Header Content', 'sv100' ) )
 				->set_module_desc( __( 'Content Header Settings', 'sv100' ) )
 				->load_child_modules()
-				->set_section_title( __( 'Header Content', 'sv100' ) )
+				->set_css_cache_active()
+				->set_section_title( $this->get_module_title() )
 				->set_section_desc( $this->get_module_desc() )
 				->set_section_type( 'settings' )
-				->set_section_template_path( $this->get_path( 'lib/backend/tpl/settings.php' ) )
-				->set_section_order(23)
+				->set_section_template_path()
+				->set_section_order(5000)
 				->get_root()
 				->add_section( $this );
 		}
@@ -189,7 +180,7 @@
 
 
 			// Title
-			$this->get_setting( 'font_family_title' )
+			$this->get_setting( 'font_title' )
 				->set_title( __( 'Font Family', 'sv100' ) )
 				->set_description( __( 'Choose a font for your text.', 'sv100' ) )
 				->set_options( $this->get_module( 'sv_webfontloader' ) ? $this->get_module( 'sv_webfontloader' )->get_font_options() : array('' => __('Please activate module SV Webfontloader for this Feature.', 'sv100')) )
@@ -215,7 +206,7 @@
 				->load_type( 'color' );
 
 			// Excerpt
-			$this->get_setting( 'font_family_excerpt' )
+			$this->get_setting( 'font_excerpt' )
 				->set_title( __( 'Font Family', 'sv100' ) )
 				->set_description( __( 'Choose a font for your text.', 'sv100' ) )
 				->set_options( $this->get_module( 'sv_webfontloader' ) ? $this->get_module( 'sv_webfontloader' )->get_font_options() : array('' => __('Please activate module SV Webfontloader for this Feature.', 'sv100')) )
@@ -335,16 +326,10 @@
 		}
 
 		protected function register_scripts(): sv_header_content {
-			$this->get_script( 'common' )
-				->set_path( 'lib/frontend/css/common.css' )
-				->set_inline( true );
+			parent::register_scripts();
 
 			$this->get_script( 'featured_image' )
-				->set_path( 'lib/frontend/css/featured_image.css' )
-				->set_inline( true );
-
-			$this->get_script( 'config' )
-				->set_path( 'lib/frontend/css/config.php' )
+				->set_path( 'lib/css/common/featured_image.css' )
 				->set_inline( true );
 
 			return $this;
@@ -377,7 +362,7 @@
 				$this->get_script( 'featured_image' )->set_inline( $settings['inline'] )->set_is_enqueued();
 			}
 
-			require ($this->get_path('lib/frontend/tpl/default.php' ));
+			require ($this->get_path('lib/tpl/frontend/default.php' ));
 
 			$output							        = ob_get_contents();
 			ob_end_clean();

@@ -4,10 +4,10 @@
 			<?php the_category(); ?>
 			<h1><?php the_title()?></h1>
 			<?php if($this->show_excerpt_single_post() && get_the_excerpt()){ ?>
-			<div class="<?php echo $this->get_prefix( 'excerpt' ); ?>"><?php the_excerpt(); ?></div>
+				<div class="<?php echo $this->get_prefix( 'excerpt' ); ?>"><?php the_excerpt(); ?></div>
 			<?php } ?>
-			<?php require( $this->get_path( 'lib/frontend/tpl/meta.php' ) ); ?>
+			<?php require( $this->get_path( 'lib/tpl/frontend/meta.php' ) ); ?>
 		</div>
 	</div>
-	<?php require( $this->get_path( 'lib/frontend/tpl/featured_image.php' ) ); ?>
+	<?php require( $this->get_path( 'lib/tpl/frontend/featured_image.php' ) ); ?>
 </div>

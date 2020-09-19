@@ -17,20 +17,20 @@
 	$text_color_excerpt = $script->get_parent()->get_header_content_excerpt_color();
 
 	if($text_color_excerpt){
-		$properties['color']		= $setting->prepare_css_property($text_color_excerpt,'rgba(',')');
+		$properties['color']		= $_s->prepare_css_property($text_color_excerpt,'rgba(',')');
 	}
 
 	$block_align_excerpt				= $script->get_parent()->get_setting('border_excerpt')->get_data();
 	if($block_align_excerpt){
 		switch ( $block_align_excerpt ) {
 			case 'left':
-				$properties['align-items']		= $setting->prepare_css_property('flex-start','','');
+				$properties['align-items']		= $_s->prepare_css_property('flex-start','','');
 				break;
 			case 'center':
-				$properties['align-items']		= $setting->prepare_css_property('center','','');
+				$properties['align-items']		= $_s->prepare_css_property('center','','');
 				break;
 			case 'right':
-				$properties['align-items']		= $setting->prepare_css_property('flex-end','','');
+				$properties['align-items']		= $_s->prepare_css_property('flex-end','','');
 		};
 	}
 

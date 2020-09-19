@@ -26,5 +26,5 @@
 ?>
 
 .sv100_sv_header_content_wrapper {
-	background-color: rgba(<?php echo $script->get_parent()->get_header_content_overlay_color(); ?>);
+background-color: rgba(<?php echo $script->get_parent()->get_header_content_overlay_color(); ?>);
 }
