@@ -410,7 +410,12 @@
 			global $post;
 
 			$setting 			= $this->get_setting( 'text_color_title' );
-			$data 				= $this->get_setting( 'text_color_title' )->get_data();
+			$data 				= $setting->get_data();
+
+			if(!$post){
+				return $data;
+			}
+
 			$override_settings 	= get_post_meta(
 				$post->ID,
 				$this->get_child_module('metabox')
