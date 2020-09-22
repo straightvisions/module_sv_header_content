@@ -328,6 +328,8 @@
 		protected function register_scripts(): sv_header_content {
 			parent::register_scripts();
 
+			$this->get_script( 'config' )->set_is_gutenberg(false);
+
 			$this->get_script( 'featured_image' )
 				->set_path( 'lib/css/common/featured_image.css' )
 				->set_inline( true );
@@ -374,7 +376,12 @@
 			global $post;
 
 			$setting 			= $this->get_setting( 'header_content_overlay_color' );
-			$data 				= $this->get_setting( 'header_content_overlay_color' )->get_data();
+			$data 				= $setting->get_data();
+
+			if(!$post){
+				return $data;
+			}
+
 			$override_settings 	= get_post_meta(
 				$post->ID,
 				$this->get_child_module('metabox')
@@ -451,7 +458,12 @@
 			global $post;
 
 			$setting 			= $this->get_setting( 'text_color_excerpt' );
-			$data 				= $this->get_setting( 'text_color_excerpt' )->get_data();
+			$data 				= $setting->get_data();
+
+			if(!$post){
+				return $data;
+			}
+
 			$override_settings 	= get_post_meta(
 				$post->ID,
 				$this->get_child_module('metabox')
@@ -487,7 +499,12 @@
 			global $post;
 
 			$setting 			= $this->get_setting( 'text_color_meta' );
-			$data 				= $this->get_setting( 'text_color_meta' )->get_data();
+			$data 				= $setting->get_data();
+
+			if(!$post){
+				return $data;
+			}
+
 			$override_settings 	= get_post_meta(
 				$post->ID,
 				$this->get_child_module('metabox')
@@ -520,6 +537,10 @@
 		public function hide_header(): bool {
 			global $post;
 
+			if(!$post){
+				return false;
+			}
+
 			if ( get_post_meta(
 					$post->ID,
 					$this->get_child_module( 'metabox' )
@@ -535,6 +556,10 @@
 
 		public function hide_featured_image(): bool {
 			global $post;
+
+			if(!$post){
+				return false;
+			}
 
 			if ( get_post_meta(
 					$post->ID,
