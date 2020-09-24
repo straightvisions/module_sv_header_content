@@ -1,4 +1,5 @@
 <?php
+
 	if($module->has_featured_image()){
 		require_once( $module->get_path( 'lib/css/config/featured_image.php' ) );
 	}
