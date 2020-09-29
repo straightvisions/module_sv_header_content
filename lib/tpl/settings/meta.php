@@ -3,8 +3,12 @@
 	<h2><?php _e('Meta', 'sv100'); ?></h2>
 	<div class="sv_setting_flex">
 		<?php
-			echo $module->get_setting( 'font_family_meta' )->form();
+			echo $module->get_setting( 'font_meta' )->form();
 			echo $module->get_setting( 'font_size_meta' )->form();
+		?>
+	</div>
+	<div class="sv_setting_flex">
+		<?php
 			echo $module->get_setting( 'text_color_meta' )->form();
 			echo $module->get_setting( 'line_height_meta' )->form();
 		?>

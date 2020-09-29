@@ -4,7 +4,11 @@
 		<div class="sv_setting_flex">
 			<?php
 				echo $module->get_setting( 'excerpt_show_single' )->form();
-				echo $module->get_setting( 'font_family_excerpt' )->form();
+				echo $module->get_setting( 'font_excerpt' )->form();
+			?>
+		</div>
+		<div class="sv_setting_flex">
+			<?php
 				echo $module->get_setting( 'font_size_excerpt' )->form();
 				echo $module->get_setting( 'text_color_excerpt' )->form();
 			?>
