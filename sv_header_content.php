@@ -14,6 +14,12 @@
 				->set_section_order(2300)
 				->get_root()
 				->add_section( $this );
+
+			add_filter( 'body_class', function( $classes ) {
+				$header_content_hidden = $this->hide_header() ? 'no_sv_header_content' : 'has_sv_header_content';
+
+				return array_merge( $classes, array( $header_content_hidden ) );
+			} );
 		}
 		// Loads required child modules
 		protected function load_child_modules(): sv_header_content {
