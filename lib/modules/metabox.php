@@ -64,7 +64,7 @@
 				->set_data(
 					(get_post_type() && $this->get_parent()->get_setting( 'show_author_' . get_post_type() )->get_data())
 							? $this->get_parent()->get_setting('show_author_'.get_post_type())->get_data()
-						: ''
+						: 0
 				)
 				->load_type( 'radio' )
 				->set_options($states);
