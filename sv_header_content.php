@@ -351,27 +351,15 @@
 
 			if(!is_admin()){
 				$this->load_settings()->register_scripts();
-			}
 
-			$settings								= shortcode_atts(
-				array(
-					'inline'						=> true,
-					'template'                      => false,
-				),
-				$settings,
-				$this->get_module_name()
-			);
+				foreach($this->get_scripts() as $script){
+					$script->set_is_enqueued();
+				}
+			}
 
 			ob_start();
 
-			$this->get_script( 'common' )->set_inline( $settings['inline'] )->set_is_enqueued();
-			$this->get_script( 'config' )->set_inline( $settings['inline'] )->set_is_enqueued();
-
-			if($this->has_featured_image()){
-				$this->get_script( 'featured_image' )->set_inline( $settings['inline'] )->set_is_enqueued();
-			}
-
-			require ($this->get_path('lib/tpl/frontend/default.php' ));
+			require_once($this->get_path('lib/tpl/frontend/default.php' ));
 
 			$output							        = ob_get_contents();
 			ob_end_clean();
