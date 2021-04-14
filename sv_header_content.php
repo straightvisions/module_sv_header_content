@@ -609,4 +609,9 @@
 
 			return false;
 		}
+		public function get_visibility(string $field): bool{
+			$status = $this->get_setting( 'show_'.$field.'_' . get_post_type() )->get_data();
+
+			return $status;
+		}
 	}
