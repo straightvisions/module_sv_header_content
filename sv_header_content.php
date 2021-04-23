@@ -569,6 +569,46 @@
 			}
 		}
 
+		public function hide_title(): bool {
+			global $post;
+
+			if(!$post){
+				return false;
+			}
+
+			if ( get_post_meta(
+					$post->ID,
+					$this->get_child_module( 'metabox' )
+						->get_setting( 'hide_title' )
+						->get_prefix( $this->get_setting( 'hide_title' )->get_ID() ),
+					true
+				) == 1 ) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		public function hide_excerpt(): bool {
+			global $post;
+
+			if(!$post){
+				return false;
+			}
+
+			if ( get_post_meta(
+					$post->ID,
+					$this->get_child_module( 'metabox' )
+						->get_setting( 'hide_excerpt' )
+						->get_prefix( $this->get_setting( 'hide_excerpt' )->get_ID() ),
+					true
+				) == 1 ) {
+				return true;
+			}else{
+				return boolval($this->get_setting( 'excerpt_show_single' )->get_data());
+			}
+		}
+
 		public function show_date(): bool{
 			return $this->get_visibility('date');
 		}
@@ -580,10 +620,6 @@
 		public function show_author(): bool{
 			return $this->get_visibility('author');
 		}
-		public function show_excerpt_single_post(): bool{
-			return boolval($this->get_setting( 'excerpt_show_single' )->get_data());
-		}
-
 		public function show_meta(): bool{
 			if ( $this->show_author() || $this->show_date() || $this->show_date_modified() ) {
 				return true;

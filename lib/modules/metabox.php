@@ -108,6 +108,16 @@
 				->set_title( __('Hide Featured Image', 'sv100') )
 				->set_description( __('No Featured Image will be shown on this post.', 'sv100') )
 				->load_type( 'checkbox' );
+
+			$this->get_setting( 'hide_title' )
+				->set_title( __('Hide Title', 'sv100') )
+				->set_description( __('No Title will be shown on this post.', 'sv100') )
+				->load_type( 'checkbox' );
+
+			$this->get_setting( 'hide_excerpt' )
+				->set_title( __('Hide Excerpt', 'sv100') )
+				->set_description( __('No Excerpt will be shown on this post.', 'sv100') )
+				->load_type( 'checkbox' );
 			
 			return $this;
 		}
