@@ -595,6 +595,8 @@
 			if(!$post){
 				return false;
 			}
+			
+			return false;
 
 			if ( get_post_meta(
 					$post->ID,
