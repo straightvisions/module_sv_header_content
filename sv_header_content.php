@@ -595,8 +595,6 @@
 			if(!$post){
 				return false;
 			}
-			
-			return false;
 
 			if ( get_post_meta(
 					$post->ID,
@@ -607,7 +605,7 @@
 				) == 1 ) {
 				return true;
 			}else{
-				return boolval($this->get_setting( 'excerpt_show_single' )->get_data());
+				return !boolval($this->get_setting( 'excerpt_show_single' )->get_data());
 			}
 		}
 
