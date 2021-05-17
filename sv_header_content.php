@@ -609,16 +609,67 @@
 			}
 		}
 
-		public function show_date(): bool{
-			return $this->get_visibility('date');
+		public function show_date(): bool {
+			global $post;
+
+			if(!$post){
+				return false;
+			}
+
+			if ( get_post_meta(
+					$post->ID,
+					$this->get_child_module( 'metabox' )
+						->get_setting( 'show_date' )
+						->get_prefix( $this->get_setting( 'show_date' )->get_ID() ),
+					true
+				) == 1 ) {
+				return true;
+			}else{
+				$post_type = get_post_type() == 'page' ? 'page' : 'post';
+				return $this->get_setting( 'show_date_'.$post_type )->get_data() == 1 ? true : false;
+			}
 		}
 
 		public function show_date_modified(): bool{
-			return $this->get_visibility('date_modified');
+			global $post;
+
+			if(!$post){
+				return false;
+			}
+
+			if ( get_post_meta(
+					$post->ID,
+					$this->get_child_module( 'metabox' )
+						->get_setting( 'show_date_modified' )
+						->get_prefix( $this->get_setting( 'show_date_modified' )->get_ID() ),
+					true
+				) == 1 ) {
+				return true;
+			}else{
+				$post_type = get_post_type() == 'page' ? 'page' : 'post';
+				return $this->get_setting( 'show_date_modified_'.$post_type )->get_data() == 1 ? true : false;
+			}
 		}
 
 		public function show_author(): bool{
-			return $this->get_visibility('author');
+			global $post;
+
+			if(!$post){
+				return false;
+			}
+
+			if ( get_post_meta(
+					$post->ID,
+					$this->get_child_module( 'metabox' )
+						->get_setting( 'show_author' )
+						->get_prefix( $this->get_setting( 'show_author' )->get_ID() ),
+					true
+				) == 1 ) {
+				return true;
+			}else{
+				$post_type = get_post_type() == 'page' ? 'page' : 'post';
+				return $this->get_setting( 'show_author_'.$post_type )->get_data() == 1 ? true : false;
+			}
 		}
 		public function show_meta(): bool{
 			if ( $this->show_author() || $this->show_date() || $this->show_date_modified() ) {

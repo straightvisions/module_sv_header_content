@@ -41,31 +41,16 @@
 
 			$this->get_setting( 'show_date' )
 				 ->set_title( __( 'Show date', 'sv100' ) )
-				 ->set_data(
-					 (get_post_type() && $this->get_parent()->get_setting( 'show_date_' . get_post_type() )->get_data())
-						? $this->get_parent()->get_setting( 'show_date_' . get_post_type() )->get_data()
-						: ''
-				 )
 				 ->load_type( 'radio' )
 				->set_options($states);
 
 			$this->get_setting( 'show_date_modified' )
 				->set_title( __( 'Show modified date', 'sv100' ) )
-				->set_data(
-					(get_post_type() && $this->get_parent()->get_setting( 'show_date_modified_' . get_post_type() )->get_data())
-						? $this->get_parent()->get_setting( 'show_date_modified_' . get_post_type() )->get_data()
-						: ''
-				)
 				->load_type( 'radio' )
 				->set_options($states);
 
 			$this->get_setting( 'show_author' )
 				 ->set_title( __( 'Show author', 'sv100' ) )
-				->set_data(
-					(get_post_type() && $this->get_parent()->get_setting( 'show_author_' . get_post_type() )->get_data())
-							? $this->get_parent()->get_setting('show_author_'.get_post_type())->get_data()
-						: 0
-				)
 				->load_type( 'radio' )
 				->set_options($states);
 
