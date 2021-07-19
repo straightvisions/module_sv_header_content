@@ -2,45 +2,38 @@
 	namespace sv100;
 
 	class sv_header_content extends init {
+		protected static $metaboxes = false;
+
 		public function init() {
 			$this->set_module_title( __( 'SV Header Content', 'sv100' ) )
 				->set_module_desc( __( 'Content Header Settings', 'sv100' ) )
-				->load_child_modules()
 				->set_css_cache_active()
 				->set_section_title( $this->get_module_title() )
 				->set_section_desc( $this->get_module_desc() )
 				->set_section_icon('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 8h24v16h-24v-16zm0-8v6h24v-6h-24z"/></svg>')
 				->set_section_template_path()
 				->set_section_order(2300)
+				->load_settings()
+				->add_metaboxes()
 				->get_root()
 				->add_section( $this );
 
 			add_filter( 'body_class', function( $classes ) {
-				$header_content_hidden = $this->hide_header() ? 'no_sv_header_content' : 'has_sv_header_content';
+				$header_content_hidden = $this->show_part('header') ? 'has_sv_header_content' : 'no_sv_header_content';
 
 				return array_merge( $classes, array( $header_content_hidden ) );
 			} );
 		}
-		// Loads required child modules
-		protected function load_child_modules(): sv_header_content {
-			require_once( $this->get_path('lib/modules/metabox.php') );
-			$this->content_metabox = new sv_header_content_metabox();
-			$this->content_metabox
-				->set_root( $this->get_root() )
-				->set_parent( $this )
-				->init();
-
-			return $this;
-		}
-
-		// Returns a child module of sv_content
-		public function get_child_module( string $child ) {
-			$child = 'content_' . $child;
-
-			return $this->get_module( 'sv_header_content' )->$child;
-		}
 		protected function load_settings(): sv_header_content {
 			// ### Content Header Settings ###
+
+			$this->get_setting( 'show_header' )
+				->set_title( __( 'Show Header', 'sv100' ) )
+				->set_description( __( 'Select Post Types on which header content should be shown.', 'sv100' ) )
+				->set_options(get_post_types(array('public' => true)))
+				->set_default_value( 1 )
+				->load_type( 'checkbox' );
+
 			// Max Width
 			$this->get_setting( 'outer_wrapper_max_width' )
 				->set_title( __( 'Outer Wrapper Max Width', 'sv100' ) )
@@ -336,7 +329,7 @@
 		protected function register_scripts(): sv_header_content {
 			parent::register_scripts();
 
-			$this->get_script( 'config' )->set_is_gutenberg(false);
+			$this->get_script( 'config' )->set_is_gutenberg(false)->set_inline(true);
 
 			$this->get_script( 'featured_image' )
 				->set_path( 'lib/css/common/featured_image.css' )
@@ -346,12 +339,12 @@
 		}
 
 		public function load( $settings = array() ): string {
-			if($this->hide_header()){
+			if(!$this->show_part('header')){
 				return '';
 			}
 
 			if(!is_admin()){
-				$this->load_settings()->register_scripts();
+				$this->register_scripts();
 
 				foreach($this->get_scripts() as $script){
 					$script->set_is_enqueued();
@@ -380,7 +373,7 @@
 
 			$override_settings 	= get_post_meta(
 				$post->ID,
-				$this->get_child_module('metabox')
+				static::$metaboxes
 					->get_setting( 'header_content_override' )
 					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
 				true
@@ -391,7 +384,7 @@
 					if ( $post ) {
 						$metabox_data = get_post_meta(
 							$post->ID,
-							$this->get_child_module('metabox')
+							static::$metaboxes
 								->get_setting( 'header_content_overlay_color' )
 								->get_prefix( $this->get_setting( 'header_content_overlay_color' )->get_ID() ),
 							true
@@ -421,7 +414,7 @@
 
 			$override_settings 	= get_post_meta(
 				$post->ID,
-				$this->get_child_module('metabox')
+				static::$metaboxes
 					->get_setting( 'header_content_override' )
 					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
 				true
@@ -432,7 +425,7 @@
 					if ( $post ) {
 						$metabox_data = get_post_meta(
 							$post->ID,
-							$this->get_child_module('metabox')
+							static::$metaboxes
 								->get_setting( 'text_color_title' )
 								->get_prefix( $this->get_setting( 'text_color_title' )->get_ID() ),
 							true
@@ -462,7 +455,7 @@
 
 			$override_settings 	= get_post_meta(
 				$post->ID,
-				$this->get_child_module('metabox')
+				static::$metaboxes
 					->get_setting( 'header_content_override' )
 					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
 				true
@@ -473,7 +466,7 @@
 					if ( $post ) {
 						$metabox_data = get_post_meta(
 							$post->ID,
-							$this->get_child_module('metabox')
+							static::$metaboxes
 								->get_setting('text_color_excerpt')
 								->get_prefix($this->get_setting('text_color_excerpt')->get_ID()),
 							true
@@ -503,7 +496,7 @@
 
 			$override_settings 	= get_post_meta(
 				$post->ID,
-				$this->get_child_module('metabox')
+				static::$metaboxes
 					->get_setting( 'header_content_override' )
 					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
 				true
@@ -513,7 +506,7 @@
 				if ( $post ) {
 					$metabox_data = get_post_meta(
 						$post->ID,
-						$this->get_child_module('metabox')
+						static::$metaboxes
 							->get_setting('text_color_meta')
 							->get_prefix( $this->get_setting('text_color_meta')->get_ID() ),
 						true
@@ -530,154 +523,28 @@
 			return $color;
 		}
 
-		public function hide_header(): bool {
+		public function show_part(string $field): bool {
 			global $post;
 
 			if(!$post){
 				return false;
 			}
 
-			if ( get_post_meta(
-					$post->ID,
-					$this->get_child_module( 'metabox' )
-						->get_setting( 'hide_header' )
-						->get_prefix( $this->get_setting( 'hide_header' )->get_ID() ),
-					true
-				) == 1 ) {
-				return true;
+			$setting = static::$metaboxes->get_data( $post->ID, $this->get_prefix('show_'.$field), $this->get_setting( 'show_'.$field )->get_data() );
+
+			// global settings allow post type based selection and are arrays
+			if(is_array($setting)){
+				// check for current post type
+				if(isset($setting[get_post_type()])){
+					$value = boolval($setting[get_post_type()]);
+				}else{
+					$value = boolval($setting['post']); // post type not found in settings, use post-setting instead as fallback
+				}
 			}else{
-				return false;
-			}
-		}
-
-		public function hide_featured_image(): bool {
-			global $post;
-
-			if(!$post){
-				return false;
+				$value = $setting;
 			}
 
-			if ( get_post_meta(
-					$post->ID,
-					$this->get_child_module( 'metabox' )
-						->get_setting( 'hide_featured_image' )
-						->get_prefix( $this->get_setting( 'hide_featured_image' )->get_ID() ),
-					true
-				) == 1 ) {
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		public function hide_title(): bool {
-			global $post;
-
-			if(!$post){
-				return false;
-			}
-
-			if ( get_post_meta(
-					$post->ID,
-					$this->get_child_module( 'metabox' )
-						->get_setting( 'hide_title' )
-						->get_prefix( $this->get_setting( 'hide_title' )->get_ID() ),
-					true
-				) == 1 ) {
-				return true;
-			}else{
-				return false;
-			}
-		}
-
-		public function hide_excerpt(): bool {
-			global $post;
-
-			if(!$post){
-				return false;
-			}
-
-			if ( get_post_meta(
-					$post->ID,
-					$this->get_child_module( 'metabox' )
-						->get_setting( 'hide_excerpt' )
-						->get_prefix( $this->get_setting( 'hide_excerpt' )->get_ID() ),
-					true
-				) == 1 ) {
-				return true;
-			}else{
-				return !boolval($this->get_setting( 'excerpt_show_single' )->get_data());
-			}
-		}
-
-		public function show_date(): bool {
-			global $post;
-
-			if(!$post){
-				return false;
-			}
-
-			if ( get_post_meta(
-					$post->ID,
-					$this->get_child_module( 'metabox' )
-						->get_setting( 'show_date' )
-						->get_prefix( $this->get_setting( 'show_date' )->get_ID() ),
-					true
-				) == 1 ) {
-				return true;
-			}else{
-				$post_type = get_post_type() == 'page' ? 'page' : 'post';
-				return $this->get_setting( 'show_date_'.$post_type )->get_data() == 1 ? true : false;
-			}
-		}
-
-		public function show_date_modified(): bool{
-			global $post;
-
-			if(!$post){
-				return false;
-			}
-
-			if ( get_post_meta(
-					$post->ID,
-					$this->get_child_module( 'metabox' )
-						->get_setting( 'show_date_modified' )
-						->get_prefix( $this->get_setting( 'show_date_modified' )->get_ID() ),
-					true
-				) == 1 ) {
-				return true;
-			}else{
-				$post_type = get_post_type() == 'page' ? 'page' : 'post';
-				return $this->get_setting( 'show_date_modified_'.$post_type )->get_data() == 1 ? true : false;
-			}
-		}
-
-		public function show_author(): bool{
-			global $post;
-
-			if(!$post){
-				return false;
-			}
-
-			if ( get_post_meta(
-					$post->ID,
-					$this->get_child_module( 'metabox' )
-						->get_setting( 'show_author' )
-						->get_prefix( $this->get_setting( 'show_author' )->get_ID() ),
-					true
-				) == 1 ) {
-				return true;
-			}else{
-				$post_type = get_post_type() == 'page' ? 'page' : 'post';
-				return $this->get_setting( 'show_author_'.$post_type )->get_data() == 1 ? true : false;
-			}
-		}
-		public function show_meta(): bool{
-			if ( $this->show_author() || $this->show_date() || $this->show_date_modified() ) {
-				return true;
-			}
-
-			return false;
+			return $value;
 		}
 
 		public function get_featured_image(): string{
@@ -697,9 +564,79 @@
 
 			return false;
 		}
-		public function get_visibility(string $field): bool{
-			$status = $this->get_setting( 'show_'.$field.'_' . get_post_type() )->get_data();
+		private function add_metaboxes(): sv_header_content{
+			static::$metaboxes			= $this->get_root()->get_module('sv_metabox');
 
-			return $status;
+			$states = array(
+				''				=> __('Default', 'sv100'),
+				'0'				=> __('Hidden', 'sv100'),
+				'1'				=> __('Show', 'sv100')
+			);
+
+			static::$metaboxes->get_setting( $this->get_prefix('show_header') )
+				->set_title( __('Show Header', 'sv100') )
+				->set_description( __('Show Content Header at all', 'sv100') )
+				->load_type( 'select' )
+				->set_options($states);
+
+			static::$metaboxes->get_setting( $this->get_prefix('show_featured_image') )
+				->set_title( __('Show Featured Image', 'sv100') )
+				->set_description( __('No Featured Image will be shown on this post.', 'sv100') )
+				->load_type( 'select' )
+				->set_options($states);
+
+			static::$metaboxes->get_setting( $this->get_prefix('show_title') )
+				->set_title( __('Show Title', 'sv100') )
+				->set_description( __('No Title will be shown on this post.', 'sv100') )
+				->load_type( 'select' )
+				->set_options($states);
+
+			static::$metaboxes->get_setting( $this->get_prefix('show_excerpt') )
+				->set_title( __('Show Excerpt', 'sv100') )
+				->set_description( __('No Excerpt will be shown on this post.', 'sv100') )
+				->load_type( 'select' )
+				->set_options($states);
+
+			static::$metaboxes->get_setting( $this->get_prefix('show_date') )
+				->set_title( __( 'Show date', 'sv100' ) )
+				->load_type( 'select' )
+				->set_options($states);
+
+			static::$metaboxes->get_setting( $this->get_prefix('show_date_modified') )
+				->set_title( __( 'Show modified date', 'sv100' ) )
+				->load_type( 'select' )
+				->set_options($states);
+
+			static::$metaboxes->get_setting( $this->get_prefix('show_author') )
+				->set_title( __( 'Show author', 'sv100' ) )
+				->load_type( 'select' )
+				->set_options($states);
+
+			static::$metaboxes->get_setting( $this->get_prefix('header_content_override') )
+				->set_title( __( 'Override Default Header Content Settings', 'sv100' ) )
+				->set_default_value(0)
+				->load_type( 'checkbox' );
+
+			static::$metaboxes->get_setting( $this->get_prefix('header_content_overlay_color') )
+				->set_title( $this->get_setting('header_content_overlay_color')->get_title() )
+				->set_description( $this->get_setting('header_content_overlay_color')->get_description() )
+				->load_type( 'color' );
+
+			static::$metaboxes->get_setting( $this->get_prefix('text_color_title') )
+				->set_title( __('Header Title: ','sv100').$this->get_setting('text_color_title')->get_title() )
+				->set_description( $this->get_setting('text_color_title')->get_description() )
+				->load_type( 'color' );
+
+			static::$metaboxes->get_setting( $this->get_prefix('text_color_excerpt') )
+				->set_title( __('Header Excerpt: ','sv100').$this->get_setting('text_color_excerpt')->get_title() )
+				->set_description( $this->get_setting('text_color_excerpt')->get_description() )
+				->load_type( 'color' );
+
+			static::$metaboxes->get_setting( $this->get_prefix('text_color_meta') )
+				->set_title( __('Header Meta: ','sv100').$this->get_setting('text_color_meta')->get_title() )
+				->set_description( $this->get_setting('text_color_meta')->get_description() )
+				->load_type( 'color' );
+
+			return $this;
 		}
 	}
