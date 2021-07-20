@@ -20,17 +20,17 @@
 		$properties['color']		= $_s->prepare_css_property($text_color_excerpt,'rgba(',')');
 	}
 
-	$block_align_excerpt				= $module->get_setting('border_excerpt')->get_data();
+	$block_align_excerpt				= $module->get_setting('block_align_excerpt')->get_data();
 	if($block_align_excerpt){
 		switch ( $block_align_excerpt ) {
 			case 'left':
-				$properties['align-items']		= $_s->prepare_css_property('flex-start','','');
+				$properties['justify-content']		= $_s->prepare_css_property('flex-start','','');
 				break;
 			case 'center':
-				$properties['align-items']		= $_s->prepare_css_property('center','','');
+				$properties['justify-content']		= $_s->prepare_css_property('center','','');
 				break;
 			case 'right':
-				$properties['align-items']		= $_s->prepare_css_property('flex-end','','');
+				$properties['justify-content']		= $_s->prepare_css_property('flex-end','','');
 		};
 	}
 

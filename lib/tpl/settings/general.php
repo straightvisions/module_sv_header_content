@@ -4,6 +4,9 @@
 		<div class="sv_setting_flex">
 			<?php
 				echo $module->get_setting( 'show_header' )->form();
+				echo $module->get_setting( 'header_effect' )->form();
+				echo $module->get_setting( 'mix_blend_mode' )->form();
+				echo $module->get_setting( 'background_blur' )->form();
 			?>
 		</div>
 		<div class="sv_setting_flex">

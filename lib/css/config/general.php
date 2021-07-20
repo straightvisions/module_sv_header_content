@@ -23,6 +23,36 @@
 			$module->get_setting('min_height')->get_css_data('min-height')
 		)
 	);
+
+	// Mix Blend Mode
+	$properties						= array();
+	$mix_blend_mode					= $module->get_header_content_mix_blend_mode();
+
+	if($mix_blend_mode){
+		$properties['mix-blend-mode']		= $_s->prepare_css_property($mix_blend_mode);
+	}
+
+	echo $_s->build_css(
+		'.sv100_sv_header_content  > canvas',
+		$properties
+	);
+
+	// Background Blur
+	$properties						= array();
+	$background_blur				= $module->get_header_content_background_blur();
+
+	if($background_blur){
+		$properties['filter']		= $_s->prepare_css_property($background_blur,'blur(','px)');
+	}
+
+	echo $_s->build_css(
+		'.sv100_sv_header_content_background img',
+		$properties
+	);
+
+
+
+
 ?>
 
 .sv100_sv_header_content_wrapper {

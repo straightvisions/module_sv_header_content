@@ -1,0 +1,3 @@
+[submodule "lib/ambient_canvas_backgrounds"]
+	path = lib/ambient_canvas_backgrounds
+	url = ../../crnacura/AmbientCanvasBackgrounds

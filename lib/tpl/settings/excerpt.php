@@ -3,7 +3,7 @@
 		<h2><?php _e('Excerpt', 'sv100'); ?></h2>
 		<div class="sv_setting_flex">
 			<?php
-				echo $module->get_setting( 'excerpt_show_single' )->form();
+				echo $module->get_setting( 'show_excerpt' )->form();
 				echo $module->get_setting( 'font_excerpt' )->form();
 			?>
 		</div>
