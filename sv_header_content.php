@@ -370,16 +370,10 @@
 				->set_is_responsive(true)
 				->load_type( 'color' );
 
-			// Overlay Settings
-			$this->get_setting('image_overlay_color')
-				->set_title( __( 'Image Overlay Color', 'sv100' ) )
-				->set_default_value( '0,0,0,0.3' )
-				->load_type( 'color' );
-
 			// Header Content Overlay
 			$this->get_setting( 'header_content_overlay_color' )
 				->set_title( __( 'Header Content Overlay Color', 'sv100' ) )
-				->set_default_value( '0,0,0,0.3' )
+				->set_default_value( '0,0,0,0' )
 				->load_type( 'color' );
 			return $this;
 		}
@@ -427,164 +421,28 @@
 			return $output;
 		}
 
-		public function get_header_content_overlay_color(): string{
+		public function has_color_override(): bool{
 			global $post;
 
-			$setting 			= $this->get_setting( 'header_content_overlay_color' );
-			$data 				= $setting->get_data();
-
 			if(!$post){
-				return $data;
+				return false;
 			}
 
-			$override_settings 	= get_post_meta(
-				$post->ID,
-				static::$metaboxes
-					->get_setting( 'header_content_override' )
-					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
-				true
-			);
+			$override_settings = static::$metaboxes->get_data( $post->ID, $this->get_prefix('header_content_override') );
 
-			if ( is_single() || is_page() || is_front_page() ) {
-				if ( $override_settings ) {
-					if ( $post ) {
-						$metabox_data = get_post_meta(
-							$post->ID,
-							static::$metaboxes
-								->get_setting( 'header_content_overlay_color' )
-								->get_prefix( $this->get_setting( 'header_content_overlay_color' )->get_ID() ),
-							true
-						);
-
-						if ( $metabox_data ) {
-							$data = $metabox_data;
-						}
-					}
-				}
-			}
-
-			$color = $setting->get_rgb( $data );
-
-			return $color;
+			return boolval($override_settings);
 		}
 
-		public function get_header_content_title_color(): string{
+		public function get_header_content_color(string $field): string{
 			global $post;
 
-			$setting 			= $this->get_setting( 'text_color_title' );
-			$data 				= $setting->get_data();
-
-			if(!$post){
-				return $data;
+			if ( $this->has_color_override() ) {
+				$data = static::$metaboxes->get_data( $post->ID, $this->get_prefix($field), $this->get_setting( $field )->get_data() );
+			}else{
+				$data = $this->get_setting( $field )->get_data();
 			}
 
-			$override_settings 	= get_post_meta(
-				$post->ID,
-				static::$metaboxes
-					->get_setting( 'header_content_override' )
-					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
-				true
-			);
-
-			if ( is_single() || is_page() || is_front_page() ) {
-				if ( $override_settings ) {
-					if ( $post ) {
-						$metabox_data = get_post_meta(
-							$post->ID,
-							static::$metaboxes
-								->get_setting( 'text_color_title' )
-								->get_prefix( $this->get_setting( 'text_color_title' )->get_ID() ),
-							true
-						);
-
-						if ( $metabox_data ) {
-							$data = $metabox_data;
-						}
-					}
-				}
-			}
-
-			$color = $setting->get_rgb( $data );
-
-			return $color;
-		}
-
-		public function get_header_content_excerpt_color(): string{
-			global $post;
-
-			$setting 			= $this->get_setting( 'text_color_excerpt' );
-			$data 				= $setting->get_data();
-
-			if(!$post){
-				return $data;
-			}
-
-			$override_settings 	= get_post_meta(
-				$post->ID,
-				static::$metaboxes
-					->get_setting( 'header_content_override' )
-					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
-				true
-			);
-
-			if ( is_single() || is_page() || is_front_page() ) {
-				if ( $override_settings ) {
-					if ( $post ) {
-						$metabox_data = get_post_meta(
-							$post->ID,
-							static::$metaboxes
-								->get_setting('text_color_excerpt')
-								->get_prefix($this->get_setting('text_color_excerpt')->get_ID()),
-							true
-						);
-
-						if ( $metabox_data ) {
-							$data = $metabox_data;
-						}
-					}
-				}
-			}
-
-			$color = $setting->get_rgb( $data );
-
-			return $color;
-		}
-
-		public function get_header_content_info_color(): string{
-			global $post;
-
-			$setting 			= $this->get_setting( 'text_color_meta' );
-			$data 				= $setting->get_data();
-
-			if(!$post){
-				return $data;
-			}
-
-			$override_settings 	= get_post_meta(
-				$post->ID,
-				static::$metaboxes
-					->get_setting( 'header_content_override' )
-					->get_prefix( $this->get_setting( 'header_content_override' )->get_ID() ),
-				true
-			);
-
-			if ( $override_settings ) {
-				if ( $post ) {
-					$metabox_data = get_post_meta(
-						$post->ID,
-						static::$metaboxes
-							->get_setting('text_color_meta')
-							->get_prefix( $this->get_setting('text_color_meta')->get_ID() ),
-						true
-					);
-
-					if ( $metabox_data ) {
-						$data = $metabox_data;
-					}
-				}
-			}
-
-			$color = $setting->get_rgb( $data );
+			$color = $this->get_setting( $field )->get_rgb( $data );
 
 			return $color;
 		}
@@ -754,52 +612,62 @@
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_featured_image') )
 				->set_title( __('Show Featured Image', 'sv100') )
-				->set_description( __('No Featured Image will be shown on this post.', 'sv100') )
+				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_title') )
 				->set_title( __('Show Title', 'sv100') )
-				->set_description( __('No Title will be shown on this post.', 'sv100') )
+				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_excerpt') )
 				->set_title( __('Show Excerpt', 'sv100') )
-				->set_description( __('No Excerpt will be shown on this post.', 'sv100') )
+				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_date') )
 				->set_title( __( 'Show date', 'sv100' ) )
+				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_date_modified') )
 				->set_title( __( 'Show modified date', 'sv100' ) )
+				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_author') )
 				->set_title( __( 'Show author', 'sv100' ) )
+				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_category') )
 				->set_title( __( 'Show category', 'sv100' ) )
+				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('header_effect') )
 				->set_title( __( 'Header Effect', 'sv100' ) )
 				->set_description( __( 'Select header effect.', 'sv100' ) )
-				->set_options(static::$header_effects)
+				->set_options(array_merge(
+					static::$header_effects,
+					array('nothing' => __('Nothing', 'sv100'))
+				))
 				->load_type( 'select' );
 
 			static::$metaboxes->get_setting( $this->get_prefix('mix_blend_mode') )
 				->set_title( __( 'Mix Blend Mode', 'sv100' ) )
 				->set_description( __( 'Select blend mix mode for header effect.', 'sv100' ) )
-				->set_options(static::$mix_blend_mode)
+				->set_options(array_merge(
+					static::$mix_blend_mode,
+					array('nothing' => __('Nothing', 'sv100'))
+				))
 				->load_type( 'select' );
 
 			static::$metaboxes->get_setting( $this->get_prefix('background_blur') )

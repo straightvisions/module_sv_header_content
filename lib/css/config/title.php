@@ -1,7 +1,7 @@
 <?php
 	$properties						= array();
 
-	$text_color_title 	= $module->get_header_content_title_color();
+	$text_color_title 	= $module->get_header_content_color('text_color_title');
 	if($text_color_title){
 		$properties['color']		= $_s->prepare_css_property($text_color_title,'rgba(',')');
 	}

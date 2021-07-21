@@ -14,7 +14,7 @@
 
 	$properties						= array();
 
-	$text_color_excerpt = $module->get_header_content_excerpt_color();
+	$text_color_excerpt = $module->get_header_content_color('text_color_excerpt');
 
 	if($text_color_excerpt){
 		$properties['color']		= $_s->prepare_css_property($text_color_excerpt,'rgba(',')');

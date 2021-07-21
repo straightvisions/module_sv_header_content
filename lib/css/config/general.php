@@ -49,12 +49,3 @@
 		'.sv100_sv_header_content_background img',
 		$properties
 	);
-
-
-
-
-?>
-
-.sv100_sv_header_content_wrapper {
-background-color: rgba(<?php echo $module->get_header_content_overlay_color(); ?>);
-}

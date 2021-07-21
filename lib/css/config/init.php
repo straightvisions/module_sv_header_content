@@ -1,6 +1,6 @@
 <?php
 	if ( $module->show_part('header') ) {
-		if ($module->show_part('show_featured_image') && $module->has_featured_image()) {
+		if ($module->show_part('featured_image') && $module->has_featured_image()) {
 			require_once($module->get_path('lib/css/config/featured_image.php'));
 		}
 

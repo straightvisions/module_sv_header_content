@@ -1,7 +1,7 @@
 <?php
 	$properties						= array();
 
-	$text_color_meta 				= $module->get_header_content_info_color();
+	$text_color_meta 				= $module->get_header_content_color('text_color_meta');
 
 	if($text_color_meta){
 		$properties['color']		= $_s->prepare_css_property($text_color_meta,'rgba(',')');
