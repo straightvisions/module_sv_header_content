@@ -44,10 +44,12 @@
 				->set_section_icon('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 8h24v16h-24v-16zm0-8v6h24v-6h-24z"/></svg>')
 				->set_section_template_path()
 				->set_section_order(2300)
-				->load_settings()
-				->add_metaboxes()
 				->get_root()
 				->add_section( $this );
+
+			add_action('init', function(){
+				$this->load_settings()->add_metaboxes();
+			});
 
 			add_filter( 'body_class', function( $classes ) {
 				$header_content_hidden = $this->show_part('header') ? 'has_sv_header_content' : 'no_sv_header_content';
@@ -101,7 +103,7 @@
 				->load_type( 'checkbox' );
 
 			$this->get_setting( 'show_author' )
-				->set_title( __( 'Show Title', 'sv100' ) )
+				->set_title( __( 'Show Author', 'sv100' ) )
 				->set_description( __( 'Select Post Types on which title should be shown.', 'sv100' ) )
 				->set_options(get_post_types(array('public' => true)))
 				->set_default_value( 1 )
@@ -383,6 +385,7 @@
 
 			$this->get_script('config')
 				->set_path('lib/css/config/init.php')
+				->set_is_gutenberg()
 				->set_inline(true);
 
 			$this->get_script('common')
@@ -629,25 +632,25 @@
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_date') )
-				->set_title( __( 'Show date', 'sv100' ) )
+				->set_title( __( 'Show Date', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_date_modified') )
-				->set_title( __( 'Show modified date', 'sv100' ) )
+				->set_title( __( 'Show Modified Date', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_author') )
-				->set_title( __( 'Show author', 'sv100' ) )
+				->set_title( __( 'Show Author', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
 			static::$metaboxes->get_setting( $this->get_prefix('show_category') )
-				->set_title( __( 'Show category', 'sv100' ) )
+				->set_title( __( 'Show Category', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);

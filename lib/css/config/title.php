@@ -12,7 +12,7 @@
 	}
 
 	echo $_s->build_css(
-		'.sv100_sv_header_content h1',
+		'.sv100_sv_header_content h1, .editor-styles-wrapper h1.wp-block-post-title',
 		array_merge(
 			$properties,
 			$module->get_setting('font_title')->get_css_data('font-family'),
