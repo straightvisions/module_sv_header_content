@@ -2,7 +2,6 @@
 	namespace sv100;
 
 	class sv_header_content extends init {
-		protected static $metaboxes = false;
 		protected static $header_effects = array();
 		protected static $mix_blend_mode = array();
 
@@ -431,7 +430,7 @@
 				return false;
 			}
 
-			$override_settings = static::$metaboxes->get_data( $post->ID, $this->get_prefix('header_content_override') );
+			$override_settings = $this->metaboxes->get_data( $post->ID, $this->get_prefix('header_content_override') );
 
 			return boolval($override_settings);
 		}
@@ -440,7 +439,7 @@
 			global $post;
 
 			if ( $this->has_color_override() ) {
-				$data = static::$metaboxes->get_data( $post->ID, $this->get_prefix($field), $this->get_setting( $field )->get_data() );
+				$data = $this->metaboxes->get_data( $post->ID, $this->get_prefix($field), $this->get_setting( $field )->get_data() );
 			}else{
 				$data = $this->get_setting( $field )->get_data();
 			}
@@ -457,7 +456,7 @@
 				return false;
 			}
 
-			$setting = static::$metaboxes->get_data( $post->ID, $this->get_prefix('mix_blend_mode'), $this->get_setting( 'mix_blend_mode' )->get_data() );
+			$setting = $this->metaboxes->get_data( $post->ID, $this->get_prefix('mix_blend_mode'), $this->get_setting( 'mix_blend_mode' )->get_data() );
 
 			// global settings allow post type based selection and are arrays
 			if(is_array($setting)){
@@ -481,7 +480,7 @@
 				return false;
 			}
 
-			$setting = static::$metaboxes->get_data( $post->ID, $this->get_prefix('background_blur'), $this->get_setting( 'background_blur' )->get_data() );
+			$setting = $this->metaboxes->get_data( $post->ID, $this->get_prefix('background_blur'), $this->get_setting( 'background_blur' )->get_data() );
 
 			// global settings allow post type based selection and are arrays
 			if(is_array($setting)){
@@ -493,30 +492,6 @@
 				}
 			}else{
 				$value = intval($setting);
-			}
-
-			return $value;
-		}
-
-		public function show_part(string $field): bool {
-			global $post;
-
-			if(!$post){
-				return false;
-			}
-
-			$setting = static::$metaboxes->get_data( $post->ID, $this->get_prefix('show_'.$field), $this->get_setting( 'show_'.$field )->get_data() );
-
-			// global settings allow post type based selection and are arrays
-			if(is_array($setting)){
-				// check for current post type
-				if(isset($setting[get_post_type()])){
-					$value = boolval($setting[get_post_type()]);
-				}else{
-					$value = boolval($setting['post']); // post type not found in settings, use post-setting instead as fallback
-				}
-			}else{
-				$value = $setting;
 			}
 
 			return $value;
@@ -539,7 +514,7 @@
 				return $this;
 			}
 
-			$setting = static::$metaboxes->get_data( $post->ID, $this->get_prefix('header_effect'), $this->get_setting( 'header_effect' )->get_data() );
+			$setting = $this->metaboxes->get_data( $post->ID, $this->get_prefix('header_effect'), $this->get_setting( 'header_effect' )->get_data() );
 
 			// global settings allow post type based selection and are arrays
 			if(is_array($setting)){
@@ -599,7 +574,7 @@
 			return false;
 		}
 		private function add_metaboxes(): sv_header_content{
-			static::$metaboxes			= $this->get_root()->get_module('sv_metabox');
+			$this->metaboxes			= $this->get_root()->get_module('sv_metabox');
 
 			$states = array(
 				''				=> __('Default', 'sv100'),
@@ -607,55 +582,55 @@
 				'1'				=> __('Show', 'sv100')
 			);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_header') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_header') )
 				->set_title( __('Show Header', 'sv100') )
 				->set_description( __('Show Content Header at all', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_featured_image') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_featured_image') )
 				->set_title( __('Show Featured Image', 'sv100') )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_title') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_title') )
 				->set_title( __('Show Title', 'sv100') )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_excerpt') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_excerpt') )
 				->set_title( __('Show Excerpt', 'sv100') )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_date') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_date') )
 				->set_title( __( 'Show Date', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_date_modified') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_date_modified') )
 				->set_title( __( 'Show Modified Date', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_author') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_author') )
 				->set_title( __( 'Show Author', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('show_category') )
+			$this->metaboxes->get_setting( $this->get_prefix('show_category') )
 				->set_title( __( 'Show Category', 'sv100' ) )
 				->set_description( __('Visibility of this element.', 'sv100') )
 				->load_type( 'select' )
 				->set_options($states);
 
-			static::$metaboxes->get_setting( $this->get_prefix('header_effect') )
+			$this->metaboxes->get_setting( $this->get_prefix('header_effect') )
 				->set_title( __( 'Header Effect', 'sv100' ) )
 				->set_description( __( 'Select header effect.', 'sv100' ) )
 				->set_options(array_merge(
@@ -664,7 +639,7 @@
 				))
 				->load_type( 'select' );
 
-			static::$metaboxes->get_setting( $this->get_prefix('mix_blend_mode') )
+			$this->metaboxes->get_setting( $this->get_prefix('mix_blend_mode') )
 				->set_title( __( 'Mix Blend Mode', 'sv100' ) )
 				->set_description( __( 'Select blend mix mode for header effect.', 'sv100' ) )
 				->set_options(array_merge(
@@ -673,32 +648,32 @@
 				))
 				->load_type( 'select' );
 
-			static::$metaboxes->get_setting( $this->get_prefix('background_blur') )
+			$this->metaboxes->get_setting( $this->get_prefix('background_blur') )
 				->set_title( __( 'Background Blur', 'sv100' ) )
 				->set_description( __( 'Set Blur Effect in Pixel', 'sv100' ) )
 				->load_type( 'number' );
 
-			static::$metaboxes->get_setting( $this->get_prefix('header_content_override') )
+			$this->metaboxes->get_setting( $this->get_prefix('header_content_override') )
 				->set_title( __( 'Override Default Header Content Settings', 'sv100' ) )
 				->set_default_value(0)
 				->load_type( 'checkbox' );
 
-			static::$metaboxes->get_setting( $this->get_prefix('header_content_overlay_color') )
+			$this->metaboxes->get_setting( $this->get_prefix('header_content_overlay_color') )
 				->set_title( $this->get_setting('header_content_overlay_color')->get_title() )
 				->set_description( $this->get_setting('header_content_overlay_color')->get_description() )
 				->load_type( 'color' );
 
-			static::$metaboxes->get_setting( $this->get_prefix('text_color_title') )
+			$this->metaboxes->get_setting( $this->get_prefix('text_color_title') )
 				->set_title( __('Header Title: ','sv100').$this->get_setting('text_color_title')->get_title() )
 				->set_description( $this->get_setting('text_color_title')->get_description() )
 				->load_type( 'color' );
 
-			static::$metaboxes->get_setting( $this->get_prefix('text_color_excerpt') )
+			$this->metaboxes->get_setting( $this->get_prefix('text_color_excerpt') )
 				->set_title( __('Header Excerpt: ','sv100').$this->get_setting('text_color_excerpt')->get_title() )
 				->set_description( $this->get_setting('text_color_excerpt')->get_description() )
 				->load_type( 'color' );
 
-			static::$metaboxes->get_setting( $this->get_prefix('text_color_meta') )
+			$this->metaboxes->get_setting( $this->get_prefix('text_color_meta') )
 				->set_title( __('Header Meta: ','sv100').$this->get_setting('text_color_meta')->get_title() )
 				->set_description( $this->get_setting('text_color_meta')->get_description() )
 				->load_type( 'color' );
