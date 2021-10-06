@@ -48,6 +48,13 @@
 	list-style-type:none;
 	padding:0;
 }
+.sv100_sv_header_content_content .post-categories li{
+	display:inline-block;
+}
+.sv100_sv_header_content_content .post-categories li:not(:last-child):after{
+	content:',';
+	margin-right:5px;
+}
 
 .sv100_sv_header_content_background{
 	overflow:hidden;
