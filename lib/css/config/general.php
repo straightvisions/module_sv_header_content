@@ -1,6 +1,6 @@
 <?php
 	echo $_s->build_css(
-		'.sv100_sv_header_content, .editor-styles-wrapper h1.wp-block-post-title',
+		is_admin() ? '.edit-post-visual-editor__post-title-wrapper' : '.sv100_sv_header_content, .editor-styles-wrapper h1.wp-block-post-title',
 		array_merge(
 			$module->get_setting('padding')->get_css_data('padding'),
 			$module->get_setting('margin')->get_css_data(),

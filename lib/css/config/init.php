@@ -1,5 +1,5 @@
 <?php
-	if ( $module->show_part('header') ) {
+	if ( $module->show_part('header') || is_admin() ) {
 		if ($module->show_part('featured_image') && $module->has_featured_image()) {
 			require_once($module->get_path('lib/css/config/featured_image.php'));
 		}
