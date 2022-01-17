@@ -20,3 +20,13 @@
 			$module->get_setting('line_height_title')->get_css_data('line-height')
 		)
 	);
+
+	$properties						= array();
+
+	echo $_s->build_css(
+		'.sv100_sv_header_content h1',
+		array_merge(
+			$properties,
+			$module->get_setting('order_title')->get_css_data('order')
+		)
+	);

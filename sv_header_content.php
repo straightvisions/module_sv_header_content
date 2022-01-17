@@ -57,8 +57,31 @@
 			} );
 		}
 		protected function load_settings(): sv_header_content {
-			// ### Content Header Settings ###
+			$this->get_setting( 'order_title' )
+				->set_title( __( 'Title Order Position', 'sv100' ) )
+				->set_description( __( 'Select Order Position for Title', 'sv100' ) )
+				->set_options(array(1=>1,2=>2,3=>3))
+				->set_default_value( 1 )
+				->set_is_responsive(true)
+				->load_type( 'select' );
 
+			$this->get_setting( 'order_excerpt' )
+				->set_title( __( 'Excerpt Order Position', 'sv100' ) )
+				->set_description( __( 'Select Order Position for Excerpt', 'sv100' ) )
+				->set_options(array(1=>1,2=>2,3=>3))
+				->set_default_value( 2 )
+				->set_is_responsive(true)
+				->load_type( 'select' );
+
+			$this->get_setting( 'order_meta' )
+				->set_title( __( 'Meta Order Position', 'sv100' ) )
+				->set_description( __( 'Select Order Position for Meta', 'sv100' ) )
+				->set_options(array(1=>1,2=>2,3=>3))
+				->set_default_value( 3 )
+				->set_is_responsive(true)
+				->load_type( 'select' );
+
+			// ### Content Header Settings ###
 			$this->get_setting( 'show_header' )
 				->set_title( __( 'Show Header', 'sv100' ) )
 				->set_description( __( 'Select Post Types on which header should be shown.', 'sv100' ) )

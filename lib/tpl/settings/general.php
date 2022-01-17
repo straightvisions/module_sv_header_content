@@ -9,6 +9,13 @@
 		</div>
 		<div class="sv_setting_flex">
 			<?php
+				echo $module->get_setting( 'order_title' )->form();
+				echo $module->get_setting( 'order_excerpt' )->form();
+				echo $module->get_setting( 'order_meta' )->form();
+			?>
+		</div>
+		<div class="sv_setting_flex">
+			<?php
 				echo $module->get_setting( 'header_effect' )->form();
 				echo $module->get_setting( 'mix_blend_mode' )->form();
 				echo $module->get_setting( 'background_blur' )->form();

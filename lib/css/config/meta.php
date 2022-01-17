@@ -31,3 +31,13 @@
 			$module->get_setting('text_align_meta')->get_css_data('text-align')
 		)
 	);
+
+	$properties						= array();
+
+	echo $_s->build_css(
+		'.sv100_sv_header_content_meta',
+		array_merge(
+			$properties,
+			$module->get_setting('order_meta')->get_css_data('order')
+		)
+	);
