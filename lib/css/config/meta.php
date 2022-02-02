@@ -6,20 +6,8 @@
 	if($text_color_meta){
 		$properties['color']		= $_s->prepare_css_property($text_color_meta,'rgba(',')');
 	}
-
-	$block_align_meta				= $module->get_setting('block_align_meta')->get_data();
-	if($block_align_meta){
-		switch ( $block_align_meta ) {
-			case 'left':
-				$properties['justify-content']		= $_s->prepare_css_property('flex-start','','');
-				break;
-			case 'center':
-				$properties['justify-content']		= $_s->prepare_css_property('center','','');
-				break;
-			case 'right':
-				$properties['justify-content']		= $_s->prepare_css_property('flex-end','','');
-		};
-	}
+	
+	$properties['justify-content']  = $_s->prepare_css_property_responsive($module->get_setting('block_align_meta')->get_data());
 
 	echo $_s->build_css(
 		'.sv100_sv_header_content_meta, .sv100_sv_header_content_meta a',

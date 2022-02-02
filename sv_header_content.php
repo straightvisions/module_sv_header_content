@@ -253,9 +253,9 @@
 				->set_title( __( 'Block Alignment', 'sv100' ) )
 				->set_description( __( 'Defines the alignment of the excerpt block inside the content header.', 'sv100' ) )
 				->set_options( array(
-					'left'	  => __( 'Left', 'sv100' ),
+					'flex-start'	  => __( 'Left', 'sv100' ),
 					'center'	=> __( 'Center', 'sv100' ),
-					'right'	 => __( 'Right', 'sv100' )
+					'flex-end'	 => __( 'Right', 'sv100' )
 				) )
 				->set_default_value( 'center' )
 				->set_is_responsive(true)
@@ -369,9 +369,9 @@
 				->set_title( __( 'Text Alignment', 'sv100' ) )
 				->set_description( __( 'Defines the alignment of the meta inside the content header.', 'sv100' ) )
 				->set_options( array(
-					'left'	  => __( 'Left', 'sv100' ),
+					'left'	    => __( 'Left', 'sv100' ),
 					'center'	=> __( 'Center', 'sv100' ),
-					'right'	 => __( 'Right', 'sv100' )
+					'right'	    => __( 'Right', 'sv100' )
 				) )
 				->set_default_value( 'left' )
 				->set_is_responsive(true)
@@ -381,11 +381,12 @@
 				->set_title( __( 'Block Alignment', 'sv100' ) )
 				->set_description( __( 'Defines the alignment of the meta block inside the content header.', 'sv100' ) )
 				->set_options( array(
-					'left'	  => __( 'Left', 'sv100' ),
-					'center'	=> __( 'Center', 'sv100' ),
-					'right'	 => __( 'Right', 'sv100' )
+					'flex-start'	    => __( 'Left', 'sv100' ),
+					'center'	        => __( 'Center', 'sv100' ),
+					'flex-end'	        => __( 'Right', 'sv100' )
 				) )
 				->set_default_value( 'center' )
+				->set_is_responsive(true)
 				->load_type( 'select' );
 
 

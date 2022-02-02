@@ -23,13 +23,17 @@
 
 .sv100_sv_header_content_content h1 {
 	max-width: 100%;
+	width:100%;
 }
 
 .sv100_sv_header_content_excerpt {
-	max-width: var( --sv100_sv_common-max-width-text );
+	display:flex;
+	flex-direction:row;
+	width: 100%;
 }
 .sv100_sv_header_content_excerpt p {
-	max-width: 100%;
+	max-width: var( --sv100_sv_common-max-width-text );
+	width: 100%;
 }
 .sv100_sv_header_content_background {
 	user-select: none;
@@ -37,6 +41,7 @@
 
 .sv100_sv_header_content_meta {
 	display:flex;
+	width: 100%;
 }
 .sv100_sv_header_content_meta > * {
 	margin:0 10px;
