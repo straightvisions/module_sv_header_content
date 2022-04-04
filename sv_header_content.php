@@ -200,30 +200,6 @@
 				->set_is_responsive(true)
 				->load_type( 'text' );
 
-			// Spacing
-			$this->get_setting( 'margin' )
-				->set_title( __( 'Margin', 'sv100' ) )
-				->set_is_responsive(true)
-				->set_default_value(
-					array(
-						'top'		=> '0px',
-						'right'		=> 'auto',
-						'bottom'	=> '0px',
-						'left'		=> 'auto'
-					)
-				)
-				->load_type( 'margin' );
-
-			$this->get_setting( 'padding' )
-				->set_title( __( 'Padding', 'sv100' ) )
-				->set_is_responsive(true)
-				->load_type( 'margin' );
-
-			$this->get_setting( 'border' )
-				->set_title( __( 'Border', 'sv100' ) )
-				->set_is_responsive(true)
-				->load_type( 'border' );
-
 			// Alignment
 			$this->get_setting( 'text_align_title' )
 				->set_title( __( 'Text Alignment', 'sv100' ) )

@@ -41,16 +41,5 @@
 				echo $module->get_setting( 'header_content_overlay_color' )->form();
 			?>
 		</div>
-		<div class="sv_setting_flex">
-			<?php
-				echo $module->get_setting( 'margin' )->form();
-				echo $module->get_setting( 'padding' )->form();
-			?>
-		</div>
-		<div class="sv_setting_flex">
-			<?php
-				echo $module->get_setting( 'border' )->form();
-			?>
-		</div>
 	</div>
 <?php } ?>

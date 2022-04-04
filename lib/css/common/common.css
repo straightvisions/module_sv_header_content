@@ -7,7 +7,8 @@
 
 .sv100_sv_header_content_wrapper {
 	width: 100%;
-	margin: 0 auto;
+	margin:0 auto;
+	padding:0 var(--sv100_sv_common-spacing);
 }
 
 .sv100_sv_header_content_content {
