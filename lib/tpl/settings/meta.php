@@ -13,6 +13,7 @@
 			echo $module->get_setting( 'line_height_meta' )->form();
 			echo $module->get_setting( 'text_align_meta' )->form();
 			echo $module->get_setting( 'block_align_meta' )->form();
+			echo $module->get_setting( 'show_category' )->form();
 		?>
 	</div>
 	<h3 class="divider"><?php _e( 'Date', 'sv100' ); ?></h3>
