@@ -386,7 +386,6 @@
 
 			$this->get_script('config')
 				->set_path('lib/css/config/init.php')
-				->set_is_gutenberg()
 				->set_inline(true);
 
 			$this->get_script('common')
